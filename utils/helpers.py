@@ -18,20 +18,19 @@ def get_driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
 
-    time.sleep(5)
+    time.sleep(3)
     return driver
 
 #Inicio de sesion
 def login_saucedemo(driver):
     driver.get(URL)
-    time.sleep(3)
 
     #Ingresar las credenciales
     driver.find_element(By.NAME, 'user-name').send_keys(USERNAME)
-    time.sleep(3)
+    time.sleep(2)
 
     driver.find_element(By.NAME, 'password').send_keys(PASSWORD)
-    time.sleep(3)
+    time.sleep(2)
 
     driver.find_element(By.ID, 'login-button').click()
-    time.sleep(7)
+    time.sleep(5)

@@ -16,7 +16,7 @@ def test_login(driver):
     #logueo de usuario con user y password
     #click al boton de login
     login_saucedemo(driver)
-    
+
     #verificar el titulo de la pagina(ventanita)
     assert "/inventory.html" in driver.current_url                  
 
@@ -37,10 +37,20 @@ def test_catalogo(driver):
     boton_menu = driver.find_element(By.ID, 'react-burger-menu-btn')
     assert boton_menu.is_displayed()
 
-#def test_carrito():
+    filtro = driver.find_element(By.CLASS_NAME, 'product_sort_container')
+    assert filtro.is_displayed()
+
+def test_carrito(driver):
     #logueo de usuario con user y password
     #click al boton de login
-    #login_saucedemo(driver)
-    #llevarme a pagina del carrito de compras
-    #incremento del carrito al agregar producto
-    #comprobar que en el carrito aparezca el producto
+    login_saucedemo(driver)
+
+    #agregar producto a carrito
+    products = driver.find_elements(By.CLASS_NAME, 'inventory_item')
+    assert len(products) > 0
+
+    products[0].find_element(By.TAG_NAME, 'button').click()
+
+    #verificar que el producto se agregó
+    badge = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
+    assert badge == "1"  
